@@ -1,14 +1,15 @@
 const express =require ('express');
 const app = express();
 const studentRoutes =require("./Routes/studentRoutes");
+const courseRoute =require('./Routes/courseRoutes')
 require( 'dotenv').config();
 require("./Model/dbConnect");
 
 app.use(express.json());
 app.use(express.urlencoded( { extended: true })); // middleware
 
-//app.use('/api/course', courseRoute)
-//app.use('/api/courses',courseRoute)
+app.use('/api/course', courseRoute)
+app.use('/api/courses',courseRoute)
 app.use('/api/student', studentRoutes)
 app.use('/api/students', studentRoutes)
 
