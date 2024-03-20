@@ -1,17 +1,20 @@
 const express =require ('express');
 const app = express();
 const studentRoutes =require("./Routes/studentRoutes");
-const courseRoute =require('./Routes/courseRoutes')
+const courseRoutes =require('./Routes/courseRoutes');
+const registrationRoutes = require('./Routes/registrationRoutes');
+
 require( 'dotenv').config();
 require("./Model/dbConnect");
 
 app.use(express.json());
 app.use(express.urlencoded( { extended: true })); // middleware
 
-app.use('/api/course', courseRoute)
-app.use('/api/courses',courseRoute)
+app.use('/api/course', courseRoutes)
+app.use('/api/courses',courseRoutes)
 app.use('/api/student', studentRoutes)
 app.use('/api/students', studentRoutes)
+
 
 // handling 404 error
 app.use(async(req, res, next)=>{
