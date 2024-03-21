@@ -1,5 +1,5 @@
 module.exports=(sequelize, DataTypes) =>{
-    const registration = sequelize.define('registration', {
+    const registration = sequelize.define('registrations', {
 
         usernamename:{
             type: DataTypes.STRING,
