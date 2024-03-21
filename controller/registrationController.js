@@ -1,26 +1,43 @@
 const db = require('../Model/dbConnect')
-const registration = db.registration
+const createError = require('http-errors')
+const { signAccessToken } = require('../helpers/jwthelpers')
+
+const user = db.users
 
 module.exports = {
-    addRegistration : async(req, res, next)=> {
+    addUser : async(req, res, next)=> {
         try{
-            let info = {
-                username: req.body.username,
-                password: req.body.password, 
-            };
-            const addRegistration = await registration.create(info);
+            const {email ,password}=req.body;
+            const exists = await user.findOne({where: {email}})
+            if (exists) {
+                throw createError.Conflict('${email} has already been registered')
+            }
+            const newUser = new user({email, password})
+            const savedUser = await newUser.save()
+
+            const accessToken = await signAccessToken(savedUser.user_id)
+            res.status(200).send({accessToken})
+        } catch(error) {
+            next(error)
+        }
+        // try{
+        //     let info = {
+        //         email: req.body.email,
+        //         password: req.body.password, 
+        //     };
+    //         const addUser = await user.create(info);
         
 
-        res.status(200).send("addRegistrationMethod");
-    }catch (error) {
-        console.log(error);
-        next(error);
-    }
+    //     res.status(200).send("addUserMethod");
+    // }catch (error) {
+    //     console.log(error);
+    //     next(error);
+    // }
 },
-    getAllRegistrations:(req,res,next)=>{
+    getAllUsers:(req,res,next)=>{
         try{
-            let registration = registration.findAll({})
-            res.status(200).send(registration)
+            let user = user.findAll({})
+            res.status(200).send(user)
         }
         catch (error)
         {

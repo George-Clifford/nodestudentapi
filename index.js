@@ -14,8 +14,8 @@ app.use('/api/course', courseRoutes)
 app.use('/api/courses',courseRoutes)
 app.use('/api/student', studentRoutes)
 app.use('/api/students', studentRoutes)
-app.use('/api/registration', registrationRoutes)
-app.use('/api/registrations', registrationRoutes)
+app.use('/api/user', registrationRoutes)
+app.use('/api/users', registrationRoutes)
 
 
 // handling 404 error

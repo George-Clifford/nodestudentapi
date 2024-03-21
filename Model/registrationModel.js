@@ -1,7 +1,7 @@
 module.exports=(sequelize, DataTypes) =>{
-    const registration = sequelize.define('registrations', {
+    const user = sequelize.define('users', {
 
-        usernamename:{
+        email:{
             type: DataTypes.STRING,
             allowNull: false,
         },  
@@ -10,5 +10,5 @@ module.exports=(sequelize, DataTypes) =>{
             allowNull: false,
         },        
     });
-    return registration;
+    return user;
 }
