@@ -1,11 +1,11 @@
 const createError = require('http-errors');
 const JWT = require('jsonwebtoken');
-const student = require('../Model/registrationModel');
+//const student = require('../Model/registrationModel');
 
 module.exports = {
-    signAccessToken: (UserId, UseRole)=>{
+    signAccessToken: (UserId)=>{
         return new Promise ((resolve, reject)=>{
-            const payload = {UserId, role:userRole}
+            const payload = {UserId}
             const secret = process.env.ACCCESS_TOKEN_SECRET;
             const options ={
                 expiresIn:'10m',
