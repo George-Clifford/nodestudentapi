@@ -34,6 +34,9 @@ module.exports = {
       next(error);
     }
   },
+
+  //function to hash password before saving
+  
   loginUser: async (req, res, next) => {
     try {
         const  result = await authSchema.validateAsync(req.body);
