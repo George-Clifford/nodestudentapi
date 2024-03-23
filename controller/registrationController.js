@@ -47,7 +47,7 @@ module.exports = {
 
             //if password matches then generate token
             const accessToken = await signAccessToken(user.id);
-            const refreshToken =  signRefreshToken(user.id);
+            const refreshToken = await signRefreshToken(user.id);
             res.send({ accessToken, refreshToken})
     } catch  (error) {
         if(error.isJoi === true)

@@ -10,5 +10,12 @@ module.exports=(sequelize, DataTypes) =>{
             allowNull: false,
         },        
     });
+    user.prototype.isValidPassword = async function (password) {
+        try {
+            return  await bcrypt.compare(password, this.password);
+        } catch (error) {
+            throw  error;
+        }
+      };
     return user;
 }
