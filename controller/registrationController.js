@@ -2,6 +2,7 @@ const db = require('../Model/dbConnect');
 const createError = require('http-errors');
 const { authSchema } = require('../helpers/validateSchema');
 const { signAccessToken } = require('../helpers/jwthelpers');
+const { invalid } = require('joi');
 
 const User = db.users;
 
@@ -19,7 +20,10 @@ module.exports = {
       const accessToken = await signAccessToken(savedUser.id); // Assuming ID is accessible directly
       res.status(200).send({ accessToken });
     } catch (error) {
-      next(error);
+      console.log(error);
+      if (error.isJoi === true) error.status = 422
+      next(error)
+      next(error)
     }
   },
   getAllUsers: async (req, res, next) => {
@@ -30,4 +34,26 @@ module.exports = {
       next(error);
     }
   },
+  loginUser: async (req, res, next) => {
+    try {
+        const  result = await authSchema.validateAsync(req.body);
+        const user = await User.findOne({where:{email :result.email}});
+        
+        if(!user)
+            throw createError.NotFound("user not registered");
+            //matching the password
+            const isMatch = await user.isValidPassword(result.password);
+            if (!isMatch) throw createError.Unauthorized('Invalid Email or Password');
+
+            //if password matches then generate token
+            const accessToken = await signAccessToken(user.id);
+            const refreshToken =  signRefreshToken(user.id);
+            res.send({ accessToken, refreshToken})
+    } catch  (error) {
+        if(error.isJoi === true)
+        return next(createError.BadRequest('invalid Email or  Password'));
+    next(error);
+    }
+    
+},
 };
