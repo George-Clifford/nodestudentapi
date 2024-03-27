@@ -5,9 +5,16 @@ const courseRoutes =require('./Routes/courseRoutes');
 const registrationRoutes = require('./Routes/registrationRoutes');
 const createError = require( 'http-errors' );
 const cors = require( "cors" ) ;
+const helmet = require ( 'helmet' ) ;
 
 require( 'dotenv').config();
 require("./Model/dbConnect");
+
+app.use(helmet())
+const corOptions = {
+    origin : 'http://localhost:3000',
+}
+app.use(cors(corOptions))
 
 app.use(express.json());
 app.use(express.urlencoded( { extended: true })); // middleware
@@ -18,7 +25,6 @@ app.use('/api/student', studentRoutes)
 app.use('/api/students', studentRoutes)
 app.use('/api/user', registrationRoutes)
 app.use('/api/users', registrationRoutes)
-
 
 // handling 404 error
 app.use(async(req, res, next)=>{
