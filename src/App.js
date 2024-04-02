@@ -2,7 +2,8 @@ import React from 'react';
 // import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 // import Navbar from './Components/Navbar';
 //import AddStudentForm from './Components/AddStudentForm';
-import AddCourseForm from './Components/AddCourseForm';
+//import AddCourseForm from './Components/AddCourseForm';
+import LoginForm from './Components/LoginForm';
 
 
 function App() {
@@ -10,7 +11,8 @@ function App() {
 
     <div className="App">
       {/* <AddStudentForm/> */}
-      <AddCourseForm/>
+      {/* <AddCourseForm/> */}
+      <LoginForm/>
       </div>
       
   );
