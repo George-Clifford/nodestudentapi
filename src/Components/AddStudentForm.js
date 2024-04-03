@@ -77,7 +77,7 @@ const AddStudentForm = () => {
         </div>
         <button type="submit">Add Student</button>
       </form>
-      <ToastContainer /> {/* ToastContainer to display toasts */}
+      <ToastContainer /> 
     </div>
   );
 };
